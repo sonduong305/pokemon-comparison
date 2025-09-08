@@ -1,4 +1,5 @@
 import pokeAPIService from '../api/pokeapi.js';
+import pokemonData from '../data/pokemonData.js';
 
 export class SearchBar {
     constructor(onPokemonSelect) {
@@ -9,6 +10,8 @@ export class SearchBar {
         this.debounceTimer = null;
         
         this.init();
+        // Preload Pokemon data for instant search
+        pokemonData.loadPokemonList();
     }
 
     init() {
@@ -28,15 +31,14 @@ export class SearchBar {
         
         clearTimeout(this.debounceTimer);
         
-        if (query.length < 2) {
+        if (query.length < 1) {
             this.hideSuggestions();
             return;
         }
 
-        this.debounceTimer = setTimeout(async () => {
-            const suggestions = await pokeAPIService.searchPokemon(query);
-            this.displaySuggestions(suggestions);
-        }, 300);
+        // Use local data for instant search - no debounce needed
+        const suggestions = await pokemonData.searchPokemon(query);
+        this.displaySuggestions(suggestions);
     }
 
     displaySuggestions(suggestions) {
@@ -49,7 +51,7 @@ export class SearchBar {
         const html = suggestions.map((pokemon, index) => `
             <div class="suggestion-item" data-name="${pokemon.name}" data-index="${index}">
                 <span class="pokemon-id">#${String(pokemon.id).padStart(3, '0')}</span>
-                <span class="pokemon-name">${this.capitalize(pokemon.name)}</span>
+                <span class="pokemon-name">${pokemonData.formatPokemonName(pokemon.name)}</span>
             </div>
         `).join('');
 

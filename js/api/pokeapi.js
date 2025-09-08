@@ -37,34 +37,10 @@ export class PokeAPIService {
         }
     }
 
+    // Deprecated - use pokemonData.searchPokemon() instead for instant local search
     async searchPokemon(query) {
-        if (!query || query.length < 2) {
-            return [];
-        }
-
-        try {
-            const response = await fetch(`${this.baseURL}/pokemon?limit=1302`);
-            if (!response.ok) {
-                throw new Error(`API error: ${response.status}`);
-            }
-
-            const data = await response.json();
-            const filteredResults = data.results
-                .filter(pokemon => 
-                    pokemon.name.toLowerCase().includes(query.toLowerCase()) ||
-                    this.extractIdFromUrl(pokemon.url).toString() === query
-                )
-                .slice(0, 10)
-                .map(pokemon => ({
-                    name: pokemon.name,
-                    id: this.extractIdFromUrl(pokemon.url)
-                }));
-
-            return filteredResults;
-        } catch (error) {
-            console.error('Search error:', error);
-            return [];
-        }
+        console.warn('searchPokemon is deprecated. Use pokemonData.searchPokemon() for better performance.');
+        return [];
     }
 
     transformPokemonData(data) {
