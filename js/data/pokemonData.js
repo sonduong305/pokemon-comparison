@@ -13,7 +13,7 @@ class PokemonDataService {
             return this.loadPromise;
         }
 
-        this.loadPromise = fetch('/data/pokemon-list.json')
+        this.loadPromise = fetch('./data/pokemon-list.json')
             .then(response => response.json())
             .then(data => {
                 this.pokemonList = data.pokemon;
