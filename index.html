@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokemon Size Comparison</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Pokemon Size Comparison</h1>
+            <p class="subtitle">Compare the size of your favorite Pokemon!</p>
+        </header>
+
+        <section class="search-section">
+            <div class="search-container">
+                <input 
+                    type="text" 
+                    id="pokemon-search" 
+                    class="search-input" 
+                    placeholder="Search Pokemon by name or ID..."
+                    autocomplete="off"
+                >
+                <div id="search-suggestions" class="search-suggestions"></div>
+            </div>
+            <button id="add-pokemon" class="btn btn-primary">Add Pokemon</button>
+        </section>
+
+        <section class="selected-pokemon">
+            <h2>Selected Pokemon</h2>
+            <div id="pokemon-list" class="pokemon-list"></div>
+        </section>
+
+        <section class="comparison-section">
+            <h2>Size Comparison</h2>
+            <div class="comparison-controls">
+                <label>
+                    <input type="radio" name="comparison-type" value="height" checked>
+                    Height
+                </label>
+                <label>
+                    <input type="radio" name="comparison-type" value="weight">
+                    Weight
+                </label>
+                <label>
+                    <input type="radio" name="comparison-type" value="visual">
+                    Visual Size
+                </label>
+                <label>
+                    <input type="checkbox" id="show-human-scale">
+                    Show human for scale
+                </label>
+            </div>
+            <div id="comparison-view" class="comparison-view"></div>
+        </section>
+
+        <div id="loading" class="loading hidden">Loading...</div>
+        <div id="error-message" class="error-message hidden"></div>
+    </div>
+
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>
